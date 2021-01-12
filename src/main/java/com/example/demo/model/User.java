@@ -4,6 +4,7 @@ package com.example.demo.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -14,7 +15,8 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class user {
+@Table(name = "users")
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int userId;
@@ -25,12 +27,13 @@ public class user {
     private Boolean status=false;//false
     private Timestamp registrationTimestamp=new Timestamp(System.currentTimeMillis());//date.now()
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name="users_to_tasks",
-            joinColumns = @JoinColumn(name="user_id"),
-            inverseJoinColumns = @JoinColumn(name="task_id")
-    )
-    private Set<task> tasks=new HashSet<>();
+    @OneToMany(fetch = FetchType.EAGER)
+    private Set<Task> tasks=new HashSet<>();
 
+    public User(String name, String lastName, String email, String password) {
+        this.name = name;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+    }
 }

@@ -7,18 +7,17 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.sql.Time;
 import java.sql.Timestamp;
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class task {
+public class Task {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int taskId;
     private String title;
-    private String descrition;
+    private String description;
     private Timestamp dateAdded=new Timestamp(System.currentTimeMillis());
     private Type type;
     private Status status;
@@ -27,5 +26,14 @@ public class task {
             fetch=FetchType.EAGER,
             cascade = CascadeType.ALL
     )
-    private user user;
+    private User user;
+
+    public Task(String title, String description, Type type, Status status, User user) {
+        this.title = title;
+        this.description = description;
+        this.type = type;
+        this.status = status;
+        this.user = user;
+    }
+
 }

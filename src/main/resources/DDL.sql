@@ -1,7 +1,7 @@
-DROP TABLE IF EXISTS 'users';
+CREATE DATABASE stm_db;
 
-CREATE TABLE 'users' (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-)
+CREATE USER IF NOT EXISTS 'stm_user'@'localhost' IDENTIFIED BY 'password';
+
+GRANT ALL PRIVILEGES ON * . * TO 'stm_user'@'localhost';
+
+
